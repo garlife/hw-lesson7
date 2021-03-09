@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-lesson',
@@ -9,6 +9,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 export class LessonComponent implements OnInit {
 
   // headers  = ['1','2','3'];
+  chReadOnly=true;
 
   lesForm: FormGroup;
 
@@ -38,6 +39,9 @@ export class LessonComponent implements OnInit {
     (this.lesForm.get('lessons') as FormArray).removeAt(length+1);
   }
 
+  toggle(){
+    this.chReadOnly=!this.chReadOnly;
+  }
 
   sendForm(){
     console.log(this.lesForm)
