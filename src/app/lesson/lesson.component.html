@@ -1,0 +1,32 @@
+<div>
+    <h1>Таблица уроков</h1>
+  <form [formGroup]="lesForm">
+    <table>
+      <tr>
+        <th>Дата</th>
+        <th>Тема</th>
+        <th>Домашнее задание</th>
+        <th>Комментарий</th>
+      </tr>
+   
+        <tr formArrayName="lessons"
+          *ngFor="
+            let lesson of lesForm.get('lessons')['controls'];
+         let i = index
+          " >
+          <!-- <div [formGroupName]="i"> -->
+            <td [formGroupName]="i">{{i + 1 + " "}}<input type="date" formControlName="date" /></td>
+            <td [formGroupName]="i"><input type="text" formControlName="theme" /></td>
+            <td [formGroupName]="i"><input type="text" formControlName="hw" /></td>
+            <td [formGroupName]="i"><input type="text" formControlName="notice" /></td>
+            <td><button type="button" (click)="addLesson(i)">Добавить</button></td>
+            <td><button type="button" (click)="delLesson()">Удалить</button></td>
+            
+          <!-- </div> -->
+        </tr>
+        
+      
+    </table>
+  </form>
+  <button type="button" (click)="sendForm()">Отправить</button>
+</div>
