@@ -1,1 +1,34 @@
-<p>journal works!</p>
+<div>
+    <h1>Журнал оценок</h1>
+  <form [formGroup]="jourForm">
+    <table>
+      <tr>
+        <th>ФИО ученика</th>
+        <th>Дата</th>
+        <th>Тема</th>
+        <th>Домашнее задание</th>
+        <th>Комментарий</th>
+        <th>Оценка</th>
+      </tr>
+   
+        <tr formArrayName="marks"
+          *ngFor="
+            let lesson of jourForm.get('marks')['controls'];
+         let i = index
+          " >
+          <!-- <div [formGroupName]="i"> -->
+            <td [formGroupName]="i">{{i + 1 + " "}}<input type="date" formControlName="date" [readonly]="chReadOnly" /></td>
+            <td [formGroupName]="i"><input type="text" formControlName="theme" [readonly]="chReadOnly" /></td>
+            <td [formGroupName]="i"><input type="text" formControlName="hw" [readonly]="chReadOnly" /></td>
+            <td [formGroupName]="i"><input type="text" formControlName="notice" [readonly]="chReadOnly" /></td>
+            <td><button type="button" (click)="addLesson(i)">Добавить урок</button></td>
+            <td><button type="button" (click)="delLesson()">Удалить урок</button></td>
+          <!-- </div> -->
+        </tr>
+        
+      
+    </table>
+  </form>
+  <button type="button" (click)="toggle()">Редактировать форму</button>
+  <button type="button" (click)="sendForm()">Отправить</button>
+</div>

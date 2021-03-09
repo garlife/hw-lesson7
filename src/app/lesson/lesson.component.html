@@ -1,8 +1,9 @@
 <div>
     <h1>Таблица уроков</h1>
   <form [formGroup]="lesForm">
-    <table>
+    <table cellspacing="2" border="1" cellpadding="5" width="600">
       <tr>
+        <th>Номер</th>
         <th>Дата</th>
         <th>Тема</th>
         <th>Домашнее задание</th>
@@ -15,18 +16,22 @@
          let i = index
           " >
           <!-- <div [formGroupName]="i"> -->
-            <td [formGroupName]="i">{{i + 1 + " "}}<input type="date" formControlName="date" [readonly]="chReadOnly" /></td>
+              <td>{{i + 1 + " "}}</td>
+            <td [formGroupName]="i"><input type="date" formControlName="date" [readonly]="chReadOnly" /></td>
             <td [formGroupName]="i"><input type="text" formControlName="theme" [readonly]="chReadOnly" /></td>
             <td [formGroupName]="i"><input type="text" formControlName="hw" [readonly]="chReadOnly" /></td>
             <td [formGroupName]="i"><input type="text" formControlName="notice" [readonly]="chReadOnly" /></td>
-            <td><button type="button" (click)="addLesson(i)">Добавить урок</button></td>
-            <td><button type="button" (click)="delLesson()">Удалить урок</button></td>
+            
+            
           <!-- </div> -->
         </tr>
-        
       
     </table>
+    
   </form>
+  <button type="button" (click)="addLesson(lesForm.get('lessons')['controls'].length)">Добавить урок</button>
+  <button type="button" (click)="delLesson()">Удалить урок</button>
   <button type="button" (click)="toggle()">Редактировать форму</button>
+  <br>
   <button type="button" (click)="sendForm()">Отправить</button>
 </div>
