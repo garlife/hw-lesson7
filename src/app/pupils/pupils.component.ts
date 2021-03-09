@@ -8,36 +8,35 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 })
 export class PupilsComponent implements OnInit {
   
+  chReadOnly=true;
   pupForm: FormGroup;
 
   constructor(private form: FormBuilder) {
 
     this.pupForm = form.group({
-      lessons: form.array([
+      pupils: form.array([
         form.group({
-          date: form.control('2021-01-01'),
-          theme: form.control('Тема урока 1'),
-          hw: form.control('Домашнее задание 1'),
-          notice: form.control('Без комментариев'),
+          surname: form.control('Сидоров'),
+          name: form.control('Петр'),
+          patronymic: form.control('Иванович')
         }),
       ]),
     }); 
   }
 
-  addLesson(i){
-    (this.pupForm.get('lessons') as FormArray).insert(i+1,this.form.group({
-      date: this.form.control(''),
-      theme: this.form.control(''),
-      hw: this.form.control(''),
-      notice: this.form.control(''),
+  addPupil(i){
+    (this.pupForm.get('pupils') as FormArray).insert(i+1,this.form.group({
+      surname: this.form.control(''),
+      name: this.form.control(''),
+      patronymic: this.form.control('')
     }) )
   }
-  delLesson(){
-    (this.pupForm.get('lessons') as FormArray).removeAt(length+1);
+  delPupil(){
+    (this.pupForm.get('pupils') as FormArray).removeAt(length+1);
   }
-
-  change(){
-
+  
+  toggle(){
+    this.chReadOnly=!this.chReadOnly;
   }
 
   sendForm(){

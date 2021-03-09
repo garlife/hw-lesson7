@@ -1,33 +1,45 @@
 <div>
-    <h1>Таблица учеников</h1>
+  <h1>Таблица учеников</h1>
   <form [formGroup]="pupForm">
     <table>
       <tr>
-        <th>Дата</th>
-        <th>Тема</th>
-        <th>Домашнее задание</th>
-        <th>Комментарий</th>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Отчество</th>
+
       </tr>
-   
-        <tr formArrayName="lessons"
-          *ngFor="
-            let lesson of pupForm.get('lessons')['controls'];
-         let i = index
-          " >
-          <!-- <div [formGroupName]="i"> -->
-            <td [formGroupName]="i">{{i + 1 + " "}}<input type="date" formControlName="date" [readonly]="true" /></td>
-            <td [formGroupName]="i"><input type="text" formControlName="theme" /></td>
-            <td [formGroupName]="i"><input type="text" formControlName="hw" /></td>
-            <td [formGroupName]="i"><input type="text" formControlName="notice" /></td>
-            <td><button type="button" (click)="addLesson(i)">Добавить</button></td>
-            <td><button type="button" (click)="delLesson()">Удалить</button></td>
-            
-          <!-- </div> -->
-        </tr>
-        
-      
+
+      <tr
+        formArrayName="pupils"
+        *ngFor="let lesson of pupForm.get('pupils')['controls']; let i = index"
+      >
+        <td [formGroupName]="i">
+          {{ i + 1 + " "
+          }}<input
+            type="text"
+            formControlName="surname"
+            [readonly]="chReadOnly"
+          />
+        </td>
+        <td [formGroupName]="i">
+          <input type="text" formControlName="name" [readonly]="chReadOnly" />
+        </td>
+        <td [formGroupName]="i">
+          <input
+            type="text"
+            formControlName="patronymic"
+            [readonly]="chReadOnly"
+          />
+        </td>
+        <td>
+          <button type="button" (click)="addPupil(i)">Добавить ученика</button>
+        </td>
+        <td>
+          <button type="button" (click)="delPupil()">Удалить ученика</button>
+        </td>
+      </tr>
     </table>
   </form>
+  <button type="button" (click)="toggle()">Редактировать форму</button>
   <button type="button" (click)="sendForm()">Отправить</button>
 </div>
-
