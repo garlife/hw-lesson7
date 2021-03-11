@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-pupils',
@@ -19,8 +19,8 @@ export class PupilsComponent implements OnInit {
     this.pupForm = form.group({
       pupils: form.array([
         form.group({
-          surname: form.control('Сидоров'),
-          name: form.control('Петр'),
+          surname: form.control('Сидоров', Validators.required),
+          name: form.control('Петр', Validators.required),
           patronymic: form.control('Иванович')
         }),
       ]),
@@ -29,9 +29,9 @@ export class PupilsComponent implements OnInit {
 
   addPupil(i){
     (this.pupForm.get('pupils') as FormArray).push(this.form.group({
-      surname: this.form.control(''),
-      name: this.form.control(''),
-      patronymic: this.form.control('')
+      surname: this.form.control('', Validators.required),
+      name: this.form.control('', Validators.required),
+      patronymic: this.form.control('', Validators.required)
     }) )
   }
   delPupil(){

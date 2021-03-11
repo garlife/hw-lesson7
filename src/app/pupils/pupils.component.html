@@ -1,5 +1,7 @@
 <div>
   <h1>Таблица учеников</h1>
+  <div *ngIf="chReadOnly" style="color: red;"><h3>Для работы с формой нажмите кнопку "Редактировать форму"</h3></div>
+
   <form [formGroup]="pupForm">
     <table cellspacing="2" border="1" cellpadding="5" width="600">
       <tr>
@@ -21,9 +23,25 @@
             formControlName="surname"
             [readonly]="chReadOnly"
           />
+          <div *ngIf="lesson.controls['surname'].touched || lesson.controls['surname'].dirty">
+            <span *ngIf="lesson.controls['surname'].invalid">
+              <img src="../../assets/red_cross.png"  width="15px" height="15px" hspace="5px">
+            </span>
+            <span *ngIf="lesson.controls['surname'].valid">
+              <img src="../../assets/green_check.png"  width="15px" height="15px" hspace="5px">
+            </span>
+          </div>
         </td>
         <td [formGroupName]="i">
           <input type="text" formControlName="name" [readonly]="chReadOnly" />
+          <div *ngIf="lesson.controls['name'].touched || lesson.controls['name'].dirty">
+            <span *ngIf="lesson.controls['name'].invalid">
+              <img src="../../assets/red_cross.png"  width="15px" height="15px" hspace="5px">
+            </span>
+            <span *ngIf="lesson.controls['name'].valid">
+              <img src="../../assets/green_check.png"  width="15px" height="15px" hspace="5px">
+            </span>
+          </div>
         </td>
         <td [formGroupName]="i">
           <input
@@ -36,9 +54,15 @@
     </table>
   </form>
 
-  <button type="button" style="background-color: green; color: honeydew;" (click)="addPupil(pupForm.get('pupils')['controls'])">Добавить ученика</button>
-  <button type="button" style="background-color: red; color: honeydew;" (click)="delPupil()">Удалить ученика</button>
+  
   <button type="button" [ngClass]="{bgCol: isBgColorGrey}" (click)="toggle()">Редактировать форму</button>
   <br>
+  <div *ngIf="!chReadOnly">
+    <button type="button" style="background-color: green; color: honeydew;" (click)="addLesson(lesForm.get('lessons')['controls'].length)">Добавить урок</button>
+    <button type="button" style="background-color: red; color: honeydew;" (click)="delLesson()">Удалить урок</button>
+  </div>
+  <br>
+  <br>
+  
   <button type="button" (click)="sendForm()">Отправить</button>
 </div>

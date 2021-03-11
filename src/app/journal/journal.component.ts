@@ -8,47 +8,47 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 })
 export class JournalComponent implements OnInit {
 
-  chReadOnly=true;
+  // chReadOnly=true;
 
-  jourForm: FormGroup;
+  // jourForm: FormGroup;
 
-  constructor(public form: FormBuilder) {
+  // constructor(public form: FormBuilder) {
 
-    this.jourForm = form.group({
-      lessons: form.array([
-        form.group({
-          date: form.control('2021-01-01'),
-          theme: form.control('Тема урока 1')
-        }),
-      ]),
-      surnames: form.array([
-        form.group({
-          date1: form.control('2021-01-01'),
-          theme1: form.control('Тема урока 1')
-        }),
-      ]),
-    }); 
-  }
+  //   this.jourForm = form.group({
+  //     lessons: form.array([
+  //       form.group({
+  //         date: form.control('2021-01-01'),
+  //         theme: form.control('Тема урока 1')
+  //       }),
+  //     ]),
+  //     surnames: form.array([
+  //       form.group({
+  //         date1: form.control('2021-01-01'),
+  //         theme1: form.control('Тема урока 1')
+  //       }),
+  //     ]),
+  //   }); 
+  // }
 
-  addLesson(){
-    (this.jourForm.get('lessons') as FormArray).push(this.form.group({
-      date: this.form.control(''),
-      theme: this.form.control(''),
-      hw: this.form.control(''),
-      notice: this.form.control(''),
-    }) )
-  }
-  delLesson(){
-    (this.jourForm.get('lessons') as FormArray).removeAt(length+1);
-  }
+  // addLesson(){
+  //   (this.jourForm.get('lessons') as FormArray).push(this.form.group({
+  //     date: this.form.control(''),
+  //     theme: this.form.control(''),
+  //     hw: this.form.control(''),
+  //     notice: this.form.control(''),
+  //   }) )
+  // }
+  // delLesson(){
+  //   (this.jourForm.get('lessons') as FormArray).removeAt(length+1);
+  // }
 
-  toggle(){
-    this.chReadOnly=!this.chReadOnly;
-  }
+  // toggle(){
+  //   this.chReadOnly=!this.chReadOnly;
+  // }
 
-  sendForm(){
-    console.log(this.jourForm)
-  }
+  // sendForm(){
+  //   console.log(this.jourForm)
+  // }
 
 
   ngOnInit(): void {

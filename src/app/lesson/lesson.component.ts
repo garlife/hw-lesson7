@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-lesson',
@@ -10,9 +10,21 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LessonComponent implements OnInit {
 
-  // headers  = ['1','2','3'];
+
   chReadOnly=true;
   isBgColorGrey=false;
+  // getDateCheck = new Date();
+  //  getDate = new Date().getDate;
+  //  getMonth = new Date().getMonth;
+  //  getYear = new Date().getFullYear;
+  //  strDate = this.getDate.toString();
+  //  strMonth = this.getMonth.toString();
+  //  strYear = this.getYear.toString();
+  //  finDate = this.strYear + this.strMonth + this.strDate;
+  
+  //  strFinDate = this.finDate.toString;
+
+
 
   lesForm: FormGroup;
 
@@ -21,26 +33,40 @@ export class LessonComponent implements OnInit {
     this.lesForm = form.group({
       lessons: form.array([
         form.group({
-          date: form.control('2021-01-01'),
-          theme: form.control('Тема урока 1'),
-          hw: form.control('Домашнее задание 1'),
+          date: form.control('2021-03-10', [Validators.required, this.dateValidator]),
+          theme: form.control('Тема урока 1', Validators.required),
+          hw: form.control('Домашнее задание 1', Validators.required),
           notice: form.control('Без комментариев'),
         }),
       ]),
     }); 
   }
 
+
+  dateValidator(control: FormControl): any {
+     let getCurrentDate = new Date().getDate();
+    if (control.value > getCurrentDate)
+    {
+      return {date: true};
+    }
+   return null;
+   
+  }
+
+
+
   addLesson(i){
     (this.lesForm.get('lessons') as FormArray).insert(i+1,this.form.group({
-      date: this.form.control(''),
-      theme: this.form.control(''),
-      hw: this.form.control(''),
+      date: this.form.control('',[Validators.required]),
+      theme: this.form.control('',Validators.required),
+      hw: this.form.control('',Validators.required),
       notice: this.form.control(''),
     }) )
   }
   delLesson(){
     (this.lesForm.get('lessons') as FormArray).removeAt(length+1);
   }
+  
 
   toggle(){
     this.chReadOnly=!this.chReadOnly;

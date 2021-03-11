@@ -1,5 +1,7 @@
 <div>
     <h1>Таблица уроков</h1>
+    <div *ngIf="chReadOnly" style="color: red;"><h3>Для работы с формой нажмите кнопку "Редактировать форму"</h3></div>
+    
   <form [formGroup]="lesForm">
     <table cellspacing="2" border="1" cellpadding="5" width="600">
       <tr>
@@ -9,29 +11,69 @@
         <th>Домашнее задание</th>
         <th>Комментарий</th>
       </tr>
-   
         <tr formArrayName="lessons"
           *ngFor="
             let lesson of lesForm.get('lessons')['controls'];
          let i = index
           " >
-          <!-- <div [formGroupName]="i"> -->
               <td>{{i + 1 + " "}}</td>
-            <td [formGroupName]="i"><input type="date" formControlName="date" [readonly]="chReadOnly" /></td>
-            <td [formGroupName]="i"><input type="text" formControlName="theme" [readonly]="chReadOnly" /></td>
-            <td [formGroupName]="i"><input type="text" formControlName="hw" [readonly]="chReadOnly" /></td>
-            <td [formGroupName]="i"><input type="text" formControlName="notice" [readonly]="chReadOnly" /></td>
-            
-            
-          <!-- </div> -->
+            <td [formGroupName]="i">
+              <input type="date" formControlName="date" [readonly]="chReadOnly"/>
+              <div  *ngIf="lesson.controls['date'].touched || lesson.controls['date'].dirty">
+
+              <span *ngIf="lesson.controls['date'].invalid">
+                <img src="../../assets/red_cross.png"  width="15px" height="15px" hspace="5px">
+              </span>
+              <span *ngIf="lesson.controls['date'].valid">
+                <img src="../../assets/green_check.png"  width="15px" height="15px" hspace="5px">
+              </span>
+            </div>
+            </td>
+            <td [formGroupName]="i">
+              <input type="text" formControlName="theme" [readonly]="chReadOnly" />
+              <div *ngIf="lesson.controls['theme'].touched || lesson.controls['theme'].dirty">
+                <span *ngIf="lesson.controls['theme'].invalid">
+                  <img src="../../assets/red_cross.png"  width="15px" height="15px" hspace="5px">
+                </span>
+                <span *ngIf="lesson.controls['theme'].valid">
+                  <img src="../../assets/green_check.png"  width="15px" height="15px" hspace="5px">
+                </span>
+              </div>
+            </td>
+            <td [formGroupName]="i">
+              <input type="text" formControlName="hw" [readonly]="chReadOnly" />
+              <div *ngIf="lesson.controls['hw'].touched || lesson.controls['hw'].dirty">
+                <span *ngIf="lesson.controls['hw'].invalid">
+                  <img src="../../assets/red_cross.png"  width="15px" height="15px" hspace="5px">
+                </span>
+                <span *ngIf="lesson.controls['hw'].valid">
+                  <img src="../../assets/green_check.png"  width="15px" height="15px" hspace="5px">
+                </span>
+              </div>
+            </td>
+            <td [formGroupName]="i"><input type="text" formControlName="notice" [readonly]="chReadOnly" />
+            <!-- <div *ngIf="lesson.controls['notice'].touched || lesson.controls['notice'].dirty">
+              <span *ngIf="lesson.controls['notice'].invalid">
+                <img src="../../assets/red_cross.png"  width="15px" height="15px" hspace="5px">
+              </span>
+              <span *ngIf="lesson.controls['notice'].valid">
+                <img src="../../assets/green_check.png"  width="15px" height="15px" hspace="5px">
+              </span>
+            </div> -->
+          </td>
+         
         </tr>
       
     </table>
     
   </form>
-  <button type="button" style="background-color: green; color: honeydew;" (click)="addLesson(lesForm.get('lessons')['controls'].length)">Добавить урок</button>
-  <button type="button" style="background-color: red; color: honeydew;" (click)="delLesson()">Удалить урок</button>
   <button type="button" [ngClass]="{bgCol: isBgColorGrey}" (click)="toggle()">Редактировать форму</button>
+  <br>
+  <div *ngIf="!chReadOnly">
+    <button type="button" style="background-color: green; color: honeydew;" (click)="addLesson(lesForm.get('lessons')['controls'].length)">Добавить урок</button>
+    <button type="button" style="background-color: red; color: honeydew;" (click)="delLesson()">Удалить урок</button>
+  </div>
   <br>
   <button type="button" (click)="sendForm()">Отправить</button>
 </div>
+
