@@ -12,15 +12,19 @@ export class JournalComponent implements OnInit {
 
   jourForm: FormGroup;
 
-  constructor(private form: FormBuilder) {
+  constructor(public form: FormBuilder) {
 
     this.jourForm = form.group({
-      marks: form.array([
+      lessons: form.array([
         form.group({
           date: form.control('2021-01-01'),
-          theme: form.control('Тема урока 1'),
-          hw: form.control('Домашнее задание 1'),
-          notice: form.control('Без комментариев'),
+          theme: form.control('Тема урока 1')
+        }),
+      ]),
+      surnames: form.array([
+        form.group({
+          date1: form.control('2021-01-01'),
+          theme1: form.control('Тема урока 1')
         }),
       ]),
     }); 

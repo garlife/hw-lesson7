@@ -1,33 +1,48 @@
 <div>
     <h1>Журнал оценок</h1>
   <form [formGroup]="jourForm">
-    <table>
+    <table cellspacing="2" border="1" cellpadding="5" width="600">
       <tr>
-        <th>ФИО ученика</th>
-        <th>Дата</th>
-        <th>Тема</th>
-        <th>Домашнее задание</th>
-        <th>Комментарий</th>
-        <th>Оценка</th>
+        <th rowspan="2">Номер</th>
+        <th rowspan="2">ФИО обучающегося</th>
+        <!-- <th colspan="3">Оценки</th> -->
+        <th [attr.colSpan]="jourForm.get('lessons')['controls'].length">Оценки</th>
+        <th rowspan="2">Cредний балл округление до 2-го разряда</th>
+        <th rowspan="2">Cредний балл округление до 1-го разряда</th>
+        <th rowspan="2">Округлённый средний балл до целого</th>
+      </tr>
+      <tr formArrayName="lessons"
+      *ngFor="
+        let lesson of jourForm.get('lessons')['controls'];
+     let i = index">
+        <td [formGroupName]="i">
+          {{lesson.date.value | date: "dd.MM.yyyy"}}
+          {{lesson.theme.value}}
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
       </tr>
    
-        <tr formArrayName="marks"
+        <!-- <tr formArrayName="marks"
           *ngFor="
             let lesson of jourForm.get('marks')['controls'];
          let i = index
           " >
-          <!-- <div [formGroupName]="i"> -->
-            <td [formGroupName]="i">{{i + 1 + " "}}<input type="date" formControlName="date" [readonly]="chReadOnly" /></td>
+            <td>{{i + 1 + " "}}</td>
+            <td [formGroupName]="i"><input type="date" formControlName="date" [readonly]="chReadOnly" /></td>
             <td [formGroupName]="i"><input type="text" formControlName="theme" [readonly]="chReadOnly" /></td>
             <td [formGroupName]="i"><input type="text" formControlName="hw" [readonly]="chReadOnly" /></td>
             <td [formGroupName]="i"><input type="text" formControlName="notice" [readonly]="chReadOnly" /></td>
-            <td><button type="button" (click)="addLesson(i)">Добавить урок</button></td>
-            <td><button type="button" (click)="delLesson()">Удалить урок</button></td>
-          <!-- </div> -->
-        </tr>
+            
         
+        </tr>
+         -->
       
     </table>
+    <button type="button" (click)="addLesson()">Добавить урок</button>
+    <button type="button" (click)="delLesson()">Удалить урок</button>
   </form>
   <button type="button" (click)="toggle()">Редактировать форму</button>
   <button type="button" (click)="sendForm()">Отправить</button>

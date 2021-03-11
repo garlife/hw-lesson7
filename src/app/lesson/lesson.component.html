@@ -29,9 +29,9 @@
     </table>
     
   </form>
-  <button type="button" (click)="addLesson(lesForm.get('lessons')['controls'].length)">Добавить урок</button>
-  <button type="button" (click)="delLesson()">Удалить урок</button>
-  <button type="button" (click)="toggle()">Редактировать форму</button>
+  <button type="button" style="background-color: green; color: honeydew;" (click)="addLesson(lesForm.get('lessons')['controls'].length)">Добавить урок</button>
+  <button type="button" style="background-color: red; color: honeydew;" (click)="delLesson()">Удалить урок</button>
+  <button type="button" [ngClass]="{bgCol: isBgColorGrey}" (click)="toggle()">Редактировать форму</button>
   <br>
   <button type="button" (click)="sendForm()">Отправить</button>
 </div>

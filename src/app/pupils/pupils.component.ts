@@ -4,14 +4,17 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 @Component({
   selector: 'app-pupils',
   templateUrl: './pupils.component.html',
-  styleUrls: ['./pupils.component.css']
+  styles: [
+    `.bgCol{background-color: grey;}`
+]
 })
 export class PupilsComponent implements OnInit {
   
   chReadOnly=true;
+  isBgColorGrey=false;
   pupForm: FormGroup;
 
-  constructor(private form: FormBuilder) {
+  constructor(public form: FormBuilder) {
 
     this.pupForm = form.group({
       pupils: form.array([
@@ -25,7 +28,7 @@ export class PupilsComponent implements OnInit {
   }
 
   addPupil(i){
-    (this.pupForm.get('pupils') as FormArray).insert(i+1,this.form.group({
+    (this.pupForm.get('pupils') as FormArray).push(this.form.group({
       surname: this.form.control(''),
       name: this.form.control(''),
       patronymic: this.form.control('')
@@ -37,6 +40,7 @@ export class PupilsComponent implements OnInit {
   
   toggle(){
     this.chReadOnly=!this.chReadOnly;
+    this.isBgColorGrey=!this.isBgColorGrey;
   }
 
   sendForm(){

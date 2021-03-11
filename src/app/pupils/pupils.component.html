@@ -1,21 +1,22 @@
 <div>
   <h1>Таблица учеников</h1>
   <form [formGroup]="pupForm">
-    <table>
+    <table cellspacing="2" border="1" cellpadding="5" width="600">
       <tr>
+        <th>Номер</th>
         <th>Фамилия</th>
         <th>Имя</th>
         <th>Отчество</th>
-
       </tr>
 
       <tr
         formArrayName="pupils"
         *ngFor="let lesson of pupForm.get('pupils')['controls']; let i = index"
       >
+      <td [formGroupName]="i">{{ i + 1 + " "
+      }}</td>
         <td [formGroupName]="i">
-          {{ i + 1 + " "
-          }}<input
+          <input
             type="text"
             formControlName="surname"
             [readonly]="chReadOnly"
@@ -31,15 +32,13 @@
             [readonly]="chReadOnly"
           />
         </td>
-        <td>
-          <button type="button" (click)="addPupil(i)">Добавить ученика</button>
-        </td>
-        <td>
-          <button type="button" (click)="delPupil()">Удалить ученика</button>
-        </td>
       </tr>
     </table>
   </form>
-  <button type="button" (click)="toggle()">Редактировать форму</button>
+
+  <button type="button" style="background-color: green; color: honeydew;" (click)="addPupil(pupForm.get('pupils')['controls'])">Добавить ученика</button>
+  <button type="button" style="background-color: red; color: honeydew;" (click)="delPupil()">Удалить ученика</button>
+  <button type="button" [ngClass]="{bgCol: isBgColorGrey}" (click)="toggle()">Редактировать форму</button>
+  <br>
   <button type="button" (click)="sendForm()">Отправить</button>
 </div>

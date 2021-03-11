@@ -4,12 +4,15 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-lesson',
   templateUrl: './lesson.component.html',
-  styleUrls: ['./lesson.component.css']
+  styles: [
+    `.bgCol{background-color: grey;}`
+]
 })
 export class LessonComponent implements OnInit {
 
   // headers  = ['1','2','3'];
   chReadOnly=true;
+  isBgColorGrey=false;
 
   lesForm: FormGroup;
 
@@ -41,6 +44,7 @@ export class LessonComponent implements OnInit {
 
   toggle(){
     this.chReadOnly=!this.chReadOnly;
+    this.isBgColorGrey=!this.isBgColorGrey;
   }
 
   sendForm(){
