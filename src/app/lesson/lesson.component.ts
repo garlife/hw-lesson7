@@ -1,18 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-lesson',
   templateUrl: './lesson.component.html',
   styles: [
-    `.bgCol{background-color: grey;}`
-]
+    `
+      .bgCol {
+        background-color: grey;
+      }
+    `,
+  ],
 })
 export class LessonComponent implements OnInit {
-
-
-  chReadOnly=true;
-  isBgColorGrey=false;
+  chReadOnly = true;
+  isBgColorGrey = false;
   // getDateCheck = new Date();
   //  getDate = new Date().getDate;
   //  getMonth = new Date().getMonth;
@@ -21,63 +29,60 @@ export class LessonComponent implements OnInit {
   //  strMonth = this.getMonth.toString();
   //  strYear = this.getYear.toString();
   //  finDate = this.strYear + this.strMonth + this.strDate;
-  
+
   //  strFinDate = this.finDate.toString;
-
-
 
   lesForm: FormGroup;
 
   constructor(private form: FormBuilder) {
-
     this.lesForm = form.group({
       lessons: form.array([
         form.group({
-          date: form.control('2021-03-10', [Validators.required, this.dateValidator]),
+          date: form.control('2021-03-10', [
+            Validators.required,
+            this.dateValidator,
+          ]),
           theme: form.control('Тема урока 1', Validators.required),
           hw: form.control('Домашнее задание 1', Validators.required),
           notice: form.control('Без комментариев'),
         }),
       ]),
-    }); 
+    });
   }
-
 
   dateValidator(control: FormControl): any {
-     let getCurrentDate = new Date().getDate();
-    if (control.value > getCurrentDate)
-    {
-      return {date: true};
+    let dateToUnix = Date.parse(control.value);
+
+    if (dateToUnix > Date.now()) {
+      return { date: true };
     }
-   return null;
-   
+
+    return null;
   }
 
-
-
-  addLesson(i){
-    (this.lesForm.get('lessons') as FormArray).insert(i+1,this.form.group({
-      date: this.form.control('',[Validators.required]),
-      theme: this.form.control('',Validators.required),
-      hw: this.form.control('',Validators.required),
-      notice: this.form.control(''),
-    }) )
+  addLesson(i) {
+    (this.lesForm.get('lessons') as FormArray).insert(
+      i + 1,
+      this.form.group({
+        date: this.form.control('', [Validators.required]),
+        theme: this.form.control('', Validators.required),
+        hw: this.form.control('', Validators.required),
+        notice: this.form.control(''),
+      })
+    );
   }
-  delLesson(){
-    (this.lesForm.get('lessons') as FormArray).removeAt(length+1);
-  }
-  
-
-  toggle(){
-    this.chReadOnly=!this.chReadOnly;
-    this.isBgColorGrey=!this.isBgColorGrey;
+  delLesson() {
+    (this.lesForm.get('lessons') as FormArray).removeAt(length + 1);
   }
 
-  sendForm(){
-    console.log(this.lesForm)
+  toggle() {
+    this.chReadOnly = !this.chReadOnly;
+    this.isBgColorGrey = !this.isBgColorGrey;
   }
 
-  ngOnInit(): void {
+  sendForm() {
+    console.log(this.lesForm);
   }
 
+  ngOnInit(): void {}
 }

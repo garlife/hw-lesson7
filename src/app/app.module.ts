@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { LessonModule } from './lesson/lesson.module';
 import { PupilsModule } from './pupils/pupils.module';
 import { JournalModule } from './journal/journal.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { JournalModule } from './journal/journal.module';
     AppRoutingModule,
     LessonModule,
     PupilsModule,
-    JournalModule
+    JournalModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
