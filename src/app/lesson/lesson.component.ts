@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-lesson',
@@ -60,11 +61,21 @@ export class LessonComponent implements OnInit {
     return null;
   }
 
+  dateValidatorNew(control: FormControl): any {
+    let dateMoment = control.value;
+
+    if (moment().isAfter(dateMoment, 'day')) {
+      return { date: true };
+    }
+
+    return null;
+  }
+
   addLesson(i) {
     (this.lesForm.get('lessons') as FormArray).insert(
       i + 1,
       this.form.group({
-        date: this.form.control('', [Validators.required]),
+        date: this.form.control('', [Validators.required, this.dateValidatorNew]),
         theme: this.form.control('', Validators.required),
         hw: this.form.control('', Validators.required),
         notice: this.form.control(''),
